@@ -13,10 +13,11 @@
   h1{font-family:'Playfair Display',serif;font-size:2.2rem;color:#ffb3d1;margin:10px 0;animation:fadeIn 2s}
   h2{font-size:1.1rem;color:#ffd700;font-weight:300}
 .heart{font-size:7rem;color:#ff4d94;animation:pulse 2s infinite}
-.btn{background:#ff4d94;border:none;padding:14px 28px;border-radius:30px;color:#fff;font-size:1rem;cursor:pointer;margin-top:20px;transition:0.3s}
+.btn{background:#ff4d94;border:none;padding:16px 32px;border-radius:30px;color:#fff;font-size:1.1rem;cursor:pointer;margin-top:20px;transition:0.3s;font-weight:500}
 .btn:hover{transform:scale(1.05)}
 .card{width:90%;max-width:400px;background:#1a1a1a;border-radius:20px;padding:15px;box-shadow:0 0 25px rgba(255,77,148,0.4)}
 .letter{max-width:500px;font-size:1rem;line-height:1.8;color:#e0e0e0}
+.tap{color:#ffb3d1;font-size:0.9rem;margin-top:10px;animation:pulse 1.5s infinite}
   @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
   @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 </style>
@@ -44,6 +45,7 @@
     This is just the beginning ❤️
   </p>
   <button class="btn" onclick="openGallery()">Tap for your Gallery 🐾</button>
+  <p class="tap">👇 Tap the button above 👇</p>
 </div>
 
 <div class="screen" id="gallery" style="display:none">
@@ -80,7 +82,7 @@ let cd = setInterval(() => {
     n--;
     if (n > 0) {document.getElementById("count").innerText = n;}
     else if (n === 0) {document.getElementById("count").innerHTML = "❤️";}
-    else {clearInterval(cd);document.getElementById("s1").style.display = "none";document.getElementById("s2").style.display = "flex";document.getElementById("music").play().catch(()=>{});}
+    else {clearInterval(cd);document.getElementById("s1").style.display = "none";document.getElementById("s2").style.display = "flex";}
 }, 1000);
 const slides = [
   {img:"pic1.jpg", text:"My queen 👑"},
@@ -90,7 +92,12 @@ const slides = [
   {img:"pic5.jpg", text:"Happy 18th Birthday, my favorite person ❤️"}
 ];
 let current = 0;
-function openGallery(){document.getElementById("s2").style.display="none";document.getElementById("gallery").style.display="flex";showSlide();}
+function openGallery(){
+  document.getElementById("s2").style.display="none";
+  document.getElementById("gallery").style.display="flex";
+  document.getElementById("music").play().catch(()=>{});
+  showSlide();
+}
 function showSlide(){const img = document.getElementById("slideImg");img.style.opacity = 0;setTimeout(() => {img.src = slides[current].img;img.style.opacity = 1;document.getElementById("caption").innerHTML = slides[current].text;}, 400);}
 function nextSlide(){current++;if(current>=slides.length){document.getElementById("gallery").innerHTML=`<h1 style="color:#ffb3d1;">❤️ Happy Birthday Farida ❤️</h1><p class="letter" style="max-width:600px">I hope today reminds you of how special you are. Thank you for being part of my life, for your beautiful smile, your kindness, your little funny moments, and for simply being you. May Allah bless your new age with happiness, good health, success, peace and endless reasons to smile.<br><br>Happy 18th Birthday, Bossy Sprinkle Monster. ❤️🐾</p><div style="font-size:4rem;margin-top:20px;">🎂🎉❤️</div>`;return;}showSlide();}
 </script>
