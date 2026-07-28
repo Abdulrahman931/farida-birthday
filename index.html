@@ -1,1 +1,153 @@
-<!DOCTYPE html><html><body><h1>Replace with your finalized HTML from chat.</h1></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy 18th Birthday Farida ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Manrope:wght@300;500&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#0a0a0a;color:#fff;font-family:'Manrope',sans-serif;overflow:hidden;text-align:center}
+  canvas{position:fixed;top:0;left:0;z-index:-1}
+.screen{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:20px}
+  h1{font-family:'Playfair Display',serif;font-size:2.2rem;color:#ffb3d1;margin:10px 0;animation:fadeIn 2s}
+  h2{font-size:1.1rem;color:#ffd700;font-weight:300}
+.heart{font-size:7rem;color:#ff4d94;animation:pulse 2s infinite}
+.btn{background:#ff4d94;border:none;padding:14px 28px;border-radius:30px;color:#fff;font-size:1rem;cursor:pointer;margin-top:20px;transition:0.3s}
+.btn:hover{transform:scale(1.05)}
+.card{width:300px;background:#1a1a1a;border-radius:20px;padding:15px;box-shadow:0 0 25px rgba(255,77,148,0.4)}
+.letter{max-width:500px;font-size:1rem;line-height:1.8;color:#e0e0e0}
+  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+</style>
+</head>
+<body>
+<canvas id="bg"></canvas>
+<audio id="music" src="Dandelions(256k).mp3" loop></audio>
+
+<div class="screen" id="s1">
+  <h2>18 years of Farida ❤️</h2>
+  <h1 id="count">3</h1>
+</div>
+
+<div class="screen" id="s2" style="display:none">
+  <h1>Happy 18th Birthday</h1>
+  <h1>Farida Onono isoyiza Tijani</h1>
+  <div class="heart">❤️</div>
+  <p class="letter">
+    To my Bossy Sprinkle Monster 😂<br><br>
+    On July 30th, the world got you. And I’m so lucky I got to know you.<br>
+    You make ordinary days feel like magic. You love cats, you love dandelions,
+    and somehow you love me too.<br><br>
+    I don’t wanna be just your friend. I wanna be the one who makes you smile.
+    Happy 18th, my love.<br><br>
+    This is just the beginning ❤️
+  </p>
+  <button class="btn" onclick="openGallery()">Tap for your Gallery 🐾</button>
+</div>
+
+<div class="screen" id="gallery" style="display:none">
+    <div class="card">
+        <img id="slideImg"
+             src="pic1.jpg"
+             style="width:100%;height:420px;object-fit:cover;border-radius:15px;opacity:1;transition:opacity.8s;">
+        <p id="caption" style="margin-top:15px;color:#ffb3d1;font-size:1rem"></p>
+    </div>
+    <button class="btn" onclick="nextSlide()">Next ❤️</button>
+</div>
+
+<script>
+// PARTICLES
+const c=document.getElementById('bg'),x=c.getContext('2d');
+c.width=innerWidth;c.height=innerHeight;
+let p=Array.from({length:120},()=>({x:Math.random()*c.width,y:Math.random()*c.height,s:Math.random()*2+1,sp:Math.random()+0.3}));
+
+function draw(){
+  x.clearRect(0,0,c.width,c.height);
+  x.fillStyle="#ffb3d1";
+  p.forEach(o=>{
+    x.beginPath();
+    x.arc(o.x,o.y,o.s,0,6.28);
+    x.fill();
+    o.y+=o.sp;
+    if(o.y>c.height){
+      o.y=0;
+      o.x=Math.random()*c.width; // NEW: respawn at random x
+    }
+  });
+  requestAnimationFrame(draw)
+}
+draw();
+
+// NEW: RESIZE LISTENER
+window.addEventListener("resize", () => {
+    c.width = innerWidth;
+    c.height = innerHeight;
+});
+
+// COUNTDOWN
+let n = 3;
+document.getElementById("count").innerText = n;
+let cd = setInterval(() => {
+    n--;
+    if (n > 0) {
+        document.getElementById("count").innerText = n;
+    } else if (n === 0) {
+        document.getElementById("count").innerHTML = "❤️";
+    } else {
+        clearInterval(cd);
+        document.getElementById("s1").style.display = "none";
+        document.getElementById("s2").style.display = "flex";
+        document.getElementById("music").play().catch(()=>{});
+    }
+}, 1000);
+
+// SLIDESHOW
+const slides = [
+  {img:"pic1.jpg", text:"My queen 👑"},
+  {img:"pic2.jpg", text:"The smile that makes my day brighter ❤️"},
+  {img:"pic3.jpg", text:"Those beautiful eyes... I could stare forever ✨"},
+  {img:"pic4.jpg", text:"My Dandelion girl 🌼"},
+  {img:"pic5.jpg", text:"Happy 18th Birthday, my favorite person ❤️"}
+];
+let current = 0;
+
+function openGallery(){
+    document.getElementById("s2").style.display="none";
+    document.getElementById("gallery").style.display="flex";
+    showSlide();
+}
+
+function showSlide(){
+    const img = document.getElementById("slideImg");
+    img.style.opacity = 0;
+    setTimeout(() => {
+        img.src = slides[current].img;
+        img.style.opacity = 1;
+        document.getElementById("caption").innerHTML = slides[current].text;
+    }, 400);
+}
+
+function nextSlide(){
+    current++;
+    if(current>=slides.length){
+        document.getElementById("gallery").innerHTML=`
+        <h1 style="color:#ffb3d1;">❤️ Happy Birthday Farida ❤️</h1>
+        <p class="letter" style="max-width:600px">
+        I hope today reminds you of how special you are.
+        Thank you for being part of my life, for your beautiful smile,
+        your kindness, your little funny moments, and for simply being you.
+        May Allah bless your new age with happiness, good health,
+        success, peace and endless reasons to smile.
+        <br><br>
+        Happy 18th Birthday, Bossy Sprinkle Monster. ❤️🐾
+        </p>
+        <div style="font-size:4rem;margin-top:20px;">🎂🎉❤️</div>
+        `;
+        return;
+    }
+    showSlide();
+}
+</script>
+</body>
+</html>
